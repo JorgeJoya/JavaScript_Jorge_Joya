@@ -58,19 +58,23 @@ signo.addEventListener("click", function AlternateSign(){
 
 //FUNCION PARA EL PUNTO
 pnt.addEventListener("click", function punto(){	
-	actual = pantalla.innerHTML.slice(0,7); //HASTA UN MAXIMO DE 8 DIGITOS PREVIOS,
+	actual = pantalla.innerHTML.slice(0,7); //HASTA UN MAXIMO DE 7 DIGITOS PREVIOS,
 	pntAdded = pnt.innerHTML=".";
-		if(pantalla.innerHTML.length == "8"){
-			var actual = pantalla.innerHTML.slice(0,8); //SI YA HAY 8 DIGITOS, NO AGREGAR
+		if(pantalla.innerHTML.length == "9"){
+			var actual = pantalla.innerHTML.slice(0,9); //SI YA HAY 8 DIGITOS, NO AGREGAR
 		}else if(actual.includes(".")){
 			var actual = pantalla.innerHTML.slice(0,8)
 				pantalla.innerHTML= actual;	//SI YA HAY UN PUNTO, NO AGREGARLO
 		}else if(actual.includes("-")){
+			if(pantalla.innerHTML.length == "9"){
+			var actual = pantalla.innerHTML.slice(0,9); //SI YA TIENE EL SIGNO (-) Y 8 DIGITOS, NO AGREGAR
+			}else{
 			var actual = pantalla.innerHTML.slice(0,8);
-				pantalla.innerHTML = actual + pntAdded;	//SI YA ESTA ESTA NEGATIVO, SOLO AGREGARLO 	
+				pantalla.innerHTML = actual + pntAdded;	//SI YA ESTA NEGATIVO, SOLO AGREGARLO 	
+			}	
 		}else if(actual==""){
 			var actual = pantalla.innerHTML.slice(0,8);
-				pantalla.innerHTML = actual + "0" + pntAdded;	//SI YA ESTA ESTA NEGATIVO, SOLO AGREGARLO 	
+				pantalla.innerHTML = actual + "0" + pntAdded; //SI YA ESTA ESTA NEGATIVO, SOLO AGREGARLO 	
 		}else{
 				pantalla.innerHTML = actual + pntAdded; //SI NO HAY UN PUNTO, AGREGARLO
 		}
@@ -83,8 +87,12 @@ n0.addEventListener("click", function numero0(){
 		if(pantalla.innerHTML.length == "8"){
 			var actual = pantalla.innerHTML.slice(0,8); //SI YA HAY 8 DIGITOS, NO AGREGAR
 		}else if(actual.includes("-")){
+			if(pantalla.innerHTML.length == "9"){
+			var actual = pantalla.innerHTML.slice(0,9); //SI YA TIENE EL SINGO (-) Y 8 DIGITOS, NO AGREGAR
+			}else{
 			var actual = pantalla.innerHTML.slice(0,8);
-				pantalla.innerHTML = actual + n0Added;	//SI YA ESTA ESTA NEGATIVO, SOLO AGREGAR DIGITO 	
+				pantalla.innerHTML = actual + n0Added;	//SI YA ESTA ESTA NEGATIVO, SOLO AGREGAR DIGITO
+			} 	
 		}else if (n0Added==actual){
 				pantalla.innerHTML = n0Added; //SI EL VALOR ES 0, SOLO SE REEMPLAZA
 		}else{
@@ -108,9 +116,13 @@ function numero(valor){
 		if(pantalla.innerHTML.length == "8"){
 			var actual = pantalla.innerHTML.slice(0,8); //SI YA HAY 8 DIGITOS, NO AGREGAR
 		}else if(actual.includes("-")){
+			if(pantalla.innerHTML.length == "9"){
+			var actual = pantalla.innerHTML.slice(0,9); //SI YA TIENE EL SINGO (-) Y 8 DIGITOS, NO AGREGAR
+			}else{
 			var actual = pantalla.innerHTML.slice(0,8);
 				pantalla.innerHTML = actual + valor;	//SI YA ESTA NEGATIVO, SOLO AGREGAR DIGITO 	
-		}else if (actual!="0"){
+			}
+		}else if(actual!="0"){
 				pantalla.innerHTML = actual + valor; //SI EL VALOR ES > 0, SE AGREGA EL DIGITO
 		}else{
 				pantalla.innerHTML = valor; //SI EL VALOR ES = 0, SOLO SE REEMPLAZA
