@@ -7,11 +7,13 @@ init : (function(){
 
 //ASIGNANDO BOTONES Y FUNCIONES
 btnFunctions : function(){
+
 //EFECTO BOTON
   var btns = document.getElementsByClassName("tecla");
   for(i=0; i<btns.length;i++){btns[i].setAttribute("onmousedown","ClickDown(this)");
   	btns[i].setAttribute("onmouseup","ClickUp(this)");	
   	} 
+
 //NOMBRANDO BOTONES
 	var pantalla = document.getElementById("display");
 	var n1 = document.getElementById("1");
@@ -60,9 +62,7 @@ signo.addEventListener("click", function AlternateSign(){
 pnt.addEventListener("click", function punto(){	
 	actual = pantalla.innerHTML.slice(0,7); //HASTA UN MAXIMO DE 7 DIGITOS PREVIOS,
 	pntAdded = pnt.innerHTML=".";
-		if(pantalla.innerHTML.length == "9"){
-			var actual = pantalla.innerHTML.slice(0,9); //SI YA HAY 8 DIGITOS, NO AGREGAR
-		}else if(actual.includes(".")){
+		if(actual.includes(".")){
 			var actual = pantalla.innerHTML.slice(0,8)
 				pantalla.innerHTML= actual;	//SI YA HAY UN PUNTO, NO AGREGARLO
 		}else if(actual.includes("-")){
@@ -72,9 +72,11 @@ pnt.addEventListener("click", function punto(){
 			var actual = pantalla.innerHTML.slice(0,8);
 				pantalla.innerHTML = actual + pntAdded;	//SI YA ESTA NEGATIVO, SOLO AGREGARLO 	
 			}	
+		}else if(pantalla.innerHTML.length == "8"){
+			var actual = pantalla.innerHTML.slice(0,8); //SI YA HAY 8 DIGITOS, NO AGREGAR
 		}else if(actual==""){
 			var actual = pantalla.innerHTML.slice(0,8);
-				pantalla.innerHTML = actual + "0" + pntAdded; //SI YA ESTA ESTA NEGATIVO, SOLO AGREGARLO 	
+				pantalla.innerHTML = actual + "0" + pntAdded; //SI YA ESTA NEGATIVO, SOLO AGREGARLO 	
 		}else{
 				pantalla.innerHTML = actual + pntAdded; //SI NO HAY UN PUNTO, AGREGARLO
 		}
@@ -84,16 +86,16 @@ pnt.addEventListener("click", function punto(){
 n0.addEventListener("click", function numero0(){
 	actual = pantalla.innerHTML.slice(0,7);	//HASTA UN MAXIMO DE 7 DIGITOS PREVIOS, 
 	n0Added = n0.innerHTML="0";
-		if(pantalla.innerHTML.length == "8"){
-			var actual = pantalla.innerHTML.slice(0,8); //SI YA HAY 8 DIGITOS, NO AGREGAR
-		}else if(actual.includes("-")){
+		if(actual.includes("-")){
 			if(pantalla.innerHTML.length == "9"){
 			var actual = pantalla.innerHTML.slice(0,9); //SI YA TIENE EL SINGO (-) Y 8 DIGITOS, NO AGREGAR
 			}else{
 			var actual = pantalla.innerHTML.slice(0,8);
-				pantalla.innerHTML = actual + n0Added;	//SI YA ESTA ESTA NEGATIVO, SOLO AGREGAR DIGITO
+				pantalla.innerHTML = actual + n0Added;	//SI YA ESTA NEGATIVO, SOLO AGREGAR DIGITO
 			} 	
-		}else if (n0Added==actual){
+		}else if(pantalla.innerHTML.length == "8"){
+			var actual = pantalla.innerHTML.slice(0,8); //SI YA HAY 8 DIGITOS, NO AGREGAR
+		}else  if(n0Added==actual){
 				pantalla.innerHTML = n0Added; //SI EL VALOR ES 0, SOLO SE REEMPLAZA
 		}else{
 				pantalla.innerHTML = actual + n0Added; //SI EL VALOR ES > 0, SE AGREGA EL DIGITO
@@ -113,15 +115,15 @@ n9.addEventListener("click",function(){numero("9")});
 
 function numero(valor){
 	actual = pantalla.innerHTML.slice(0,7);	//HASTA UN MAXIMO DE 7 DIGITOS PREVIOS, 
-		if(pantalla.innerHTML.length == "8"){
-			var actual = pantalla.innerHTML.slice(0,8); //SI YA HAY 8 DIGITOS, NO AGREGAR
-		}else if(actual.includes("-")){
+		if(actual.includes("-")){
 			if(pantalla.innerHTML.length == "9"){
 			var actual = pantalla.innerHTML.slice(0,9); //SI YA TIENE EL SINGO (-) Y 8 DIGITOS, NO AGREGAR
 			}else{
 			var actual = pantalla.innerHTML.slice(0,8);
 				pantalla.innerHTML = actual + valor;	//SI YA ESTA NEGATIVO, SOLO AGREGAR DIGITO 	
 			}
+		}else if(pantalla.innerHTML.length == "8"){
+			var actual = pantalla.innerHTML.slice(0,8); //SI YA HAY 8 DIGITOS, NO AGREGAR
 		}else if(actual!="0"){
 				pantalla.innerHTML = actual + valor; //SI EL VALOR ES > 0, SE AGREGA EL DIGITO
 		}else{
@@ -136,6 +138,7 @@ var lastportion;
 var operation;
 var result;
 var Clip = false;
+
 //BOTONES DE LAS OPERACIONES ARITMETICAS
 sumar.addEventListener("click",function sum() {
 	portionA = pantalla.innerHTML;
@@ -176,6 +179,7 @@ portionA = result;
 function CleanUp(){
 	pantalla.innerHTML = ""; //LIMPIAR PANTALLA
 }
+
 //FUNCION DE OPERACION ARITMETICA
 function resolve(){
 	switch(operation) {
