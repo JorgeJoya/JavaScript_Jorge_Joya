@@ -36,6 +36,12 @@ btnFunctions : function(){
 onbtn.addEventListener("click",function reset () {
 	onbtnclick = onbtn.innerHTML="0"; 
 	pantalla.innerHTML = onbtnclick; //AL PRESIONAR, SE RESETEA EL VALOR,
+	portionA="0";
+	portionB="0";
+	lastportion="0";
+	operation="";
+	result="0";
+	Clip = false;
 	});
 signo.addEventListener("click", function AlternateSign(){
 	var actual = pantalla.innerHTML.slice(0,8); //HASTA UN MAXIMO DE 8 DIGITOS PREVIOS,		
@@ -49,7 +55,9 @@ signo.addEventListener("click", function AlternateSign(){
 pnt.addEventListener("click", function punto(){	
 	actual = pantalla.innerHTML.slice(0,7); //HASTA UN MAXIMO DE 8 DIGITOS PREVIOS,
 	pntAdded = pnt.innerHTML=".";
-		if(actual.includes(".")){
+		if(pantalla.innerHTML.length == "8"){
+			var actual = pantalla.innerHTML.slice(0,8); //SI YA HAY 8 DIGITOS, NO AGREGAR
+		}else if(actual.includes(".")){
 			var actual = pantalla.innerHTML.slice(0,8)
 				pantalla.innerHTML= actual;	//SI YA HAY UN PUNTO, NO AGREGARLO
 		}else if(actual.includes("-")){
@@ -204,7 +212,70 @@ n9.addEventListener("click", function numero9(){
 				pantalla.innerHTML = n9Added;	//SI EL VALOR ES = 0, SOLO SE REEMPLAZA
 		}
 	});
-
+///VARIABLES PARA REALIZAR LAS OPERACIONES ARITMETICAS
+var portionA;
+var portionB;
+var lastportion;
+var operation;
+var result;
+var Clip = false;
+//BOTONES DE LAS OPERACIONES ARITMETICAS
+sumar.addEventListener("click",function sum() {
+	portionA = pantalla.innerHTML;
+	operation = sumar.innerHTML="+";
+	CleanUp(); 
+	Clip = false;
+	});
+restar.addEventListener("click",function rest() {
+	portionA = pantalla.innerHTML;
+	operation = restar.innerHTML="-"; 
+	CleanUp();
+	Clip = false; 
+	});
+multiplicar.addEventListener("click",function mult() {
+	portionA = pantalla.innerHTML;
+	operation = multiplicar.innerHTML="*"; 
+	CleanUp(); 
+	Clip = false;
+	});
+dividir.addEventListener("click",function div() {
+	portionA = pantalla.innerHTML;
+	operation = dividir.innerHTML="/"; 
+	CleanUp(); 
+	Clip = false;
+	});
+resultbtn.addEventListener("click",function resultClick() {
+if(!Clip){
+		portionB= pantalla.innerHTML;
+		lastportion= portionB;
+		resolve();	 	//AL PRIMER CLICK EN EL BOTON (=)
+	}else{
+		resolve(); 		//AL DAR CLICK NUEVAMENTE
+	}
+Clip = true;	
+pantalla.innerHTML=result.toString().slice(0,8);
+portionA = result;
+	});
+function CleanUp(){
+	pantalla.innerHTML = ""; //LIMPIAR PANTALLA
+}
+//FUNCION DE OPERACION ARITMETICA
+function resolve(){
+	switch(operation) {
+		case "+":
+		result = eval(parseFloat(portionA) + parseFloat(portionB)); //SUMAR
+		break;
+		case "-":
+		result = eval(parseFloat(portionA) - parseFloat(portionB)); //RESTAR
+		break;
+		case "*":
+		result = eval(parseFloat(portionA) * parseFloat(portionB)); //MULTIPLICAR
+		break;
+		case "/":
+		result = eval(parseFloat(portionA) / parseFloat(portionB)); //DIVIDIR
+		break;
+	};	
+}
 
 },
 };
